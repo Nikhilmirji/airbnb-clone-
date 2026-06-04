@@ -52,13 +52,20 @@ module.exports.editlisting=async (req, res) => {
         req.flash("error", 'The Listing You Are Trying To Access Does Not Exist!');
         return res.redirect("/listing");
     }
-  
-    res.render("edit.ejs", { listing });
+    let originalimage=listing.image.url;
+    originalimage=originalimage.replace("/upload","/upload/w_300")
+    res.render("edit.ejs", { listing,originalimage });
 }
 
 module.exports.updatelisting=async (req, res) => {
     let { id } = req.params;
-    await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    let listing =await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    if(req.file!=="undefined"){
+     let url = req.file.path;
+     let filename = req.file.filename;
+     listing.image={url,filename}
+     await listing.save()
+}
     req.flash("success", 'listing updated!')
     res.redirect(`/listing/${id}`
 

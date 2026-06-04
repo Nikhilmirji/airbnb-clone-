@@ -5,10 +5,12 @@
             <div class="col-8" offset-2>
                 <h2>edit your listing</h2>
 
-                <form action="/listing/<%=listing._id%>?_method=PUT" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
+                <form action="/listing/<%=listing._id%>?_method=PUT" method="post" novalidate class="needs-validation"
+                    enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="title" class="form-label">title </label>
-                        <input type="text" name="listing[title]" value="<%=listing.title%>" class="form-control" required>
+                        <input type="text" name="listing[title]" value="<%=listing.title%>" class="form-control"
+                            required>
                         <div class="valid-feedback">
                             title looks correct!
 
@@ -19,7 +21,8 @@
 
                     <div class="mb-3">
                         <label for="description" class="form-label">description </label>
-                        <textarea name="listing[description]" class="form-control" required><%= listing.description %></textarea>
+                        <textarea name="listing[description]" class="form-control"
+                            required><%= listing.description %></textarea>
                         <div class="valid-feedback">
                             descreption is good!!
 
@@ -30,45 +33,49 @@
                     <br>
 
 
-
+                    <div class="mb-3">
+                        <img src="<%= originalimage%>" >
+                    </div>
                     <div class="mb-3">
                         <label for="image" class="form-label">Upload new Image </label>
-                        <input type="file" name="listing[image]"  class="form-control" required>
+                        <input type="file" name="listing[image]" class="form-control" required>
                         <div class="invalid-feedback">
                             enter new entered!
-
                         </div>
                     </div>
                     <br>
                     <br>
 
                     <div class="row">
-                    <div class="mb-3 col-4">
-                        <label for="price" class="form-label">price </label>
-                        <input type="number" name="listing[price]" value="<%=listing.price%>" class="form-control" required>
-                        <div class="invalid-feedback">
-                           enter valid price!
+                        <div class="mb-3 col-4">
+                            <label for="price" class="form-label">price </label>
+                            <input type="number" name="listing[price]" value="<%=listing.price%>" class="form-control"
+                                required>
+                            <div class="invalid-feedback">
+                                enter valid price!
 
+                            </div>
                         </div>
-                    </div>
-                    <br>
-                    <br>
+                        <br>
+                        <br>
 
-                    <div class="mb-3 col-8">
-                        <label for="country " class="form-label">country </label>
-                        <input type="text" name="listing[country]" value="<%=listing.country%>" class="form-control" required>
-                        <div class="invalid-feedback">
-                            enter valid country!
+                        <div class="mb-3 col-8">
+                            <label for="country " class="form-label">country </label>
+                            <input type="text" name="listing[country]" value="<%=listing.country%>" class="form-control"
+                                required>
+                            <div class="invalid-feedback">
+                                enter valid country!
 
+                            </div>
                         </div>
-                    </div>
-                    <br>
-                    <br>
+                        <br>
+                        <br>
                     </div>
 
                     <div class="mb-3">
                         <label for="location" class="form-label">location </label>
-                        <input type="text" name="listing[location]" value="<%=listing.location%>" class="form-control" required>
+                        <input type="text" name="listing[location]" value="<%=listing.location%>" class="form-control"
+                            required>
                     </div>
                     <br>
                     <br>
