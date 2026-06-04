@@ -1,0 +1,131 @@
+<% layout("boilerplate.ejs")%>
+
+    <body>
+        <div class="row mt-3">
+            <div class="col-8 offset-3">
+
+                <h3>
+                    <%=listting.title%>
+                </h3>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-8 offset-2">
+                <div class="card listing-card">
+                    <img src="<%=listting.image.url%>" class="card-img-top showimg" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">
+                            <% if(listting.owner && listting.owner.username) { %>
+                                <p><i>Owned by <%= listting.owner.username%></i></p>
+                                <% } %>
+
+                                    <b>
+
+                                        <%=listting.description%>
+                                    </b>
+                                    <br>
+                                    <br>
+                                    <b>
+                                        &#8377;<%= listting.price.toLocaleString("en-IN")%>
+                                    </b>
+                                    <br>
+                                    <br>
+                                    <b>
+                                        <%=listting.location%>
+                                    </b>
+                                    <br>
+                                    <br>
+                                    <b>
+                                        <%=listting.country%>
+                                    </b>
+
+
+                        </p>
+                    </div>
+                </div>
+
+
+                <br>
+                <div class="btns">
+
+                    <button class="btn"><a href="/listing/<%=listting._id%>/edit" class="edit-link">edit this
+                            listing</a></button>
+                    <br><br><br>
+                    <form action="/listing/<%=listting._id%>?_method=DELETE" method="post">
+                        <button class="btn btn-dark">
+                            delete
+                        </button>
+                </div>
+
+                <br><br>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div class="col-8 offset-3 mb-3">
+            <% if(currentUser) { %>
+                <h4>Leave a Review</h4>
+                <form action="/listing/<%=listting._id%>/review" method="post" novalidate class="needs-validation">
+                    <div class="mb-3 mt-3">
+                        <label for="rating" class="form-label">Rating</label>
+                        <fieldset class="starability-slot">
+                            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1"
+                                checked aria-label="No rating." />
+                            <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                            <label for="first-rate1" title="Terrible">1 star</label>
+                            <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                            <label for="first-rate2" title="Not good">2 stars</label>
+                            <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                            <label for="first-rate3" title="Average">3 stars</label>
+                            <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                            <label for="first-rate4" title="Very good">4 stars</label>
+                            <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                            <label for="first-rate5" title="Amazing">5 stars</label>
+                        </fieldset>
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="comment" class="form-label">Comments</label>
+                        <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control"
+                            required></textarea>
+                        <div class="invalid-feedback">Please enter some comment</div>
+                    </div>
+                    <button class="btn btn-outline-dark">submit</button>
+                </form>
+                <%}%>
+
+                    <hr>
+                    <h4> All Reviews</h4>
+                    <div class="row">
+                        <% for (review of listting.review) { %>
+                            <div class="card col-5 mb-4 ms-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <% if(review.author && review.author.username) { %>
+                                            <%= review.author.username%>
+                                                <% } else { %>
+                                                    Anonymous
+                                                    <% } %>
+                                    </h5>
+                                    <p class="card-text">
+                                        <%= review.comment %>
+                                    </p>
+                                    <p class="card-text">
+
+                                    <p class="starability-result" data-rating="<%= review.rating %>">
+                                        
+                                    </p>
+                                    </p>
+                                </div>
+                                <form class="mb-3" method="post"
+                                    action="/listing/<%=listting._id%>/review/<%=review._id%>?_method=DELETE">
+                                    <button class="btn btn-sm btn-dark">Delete</button>
+                                </form>
+                            </div>
+                            <% } %>
+                    </div>
+
+
+        </div>
+        <script src="/public/form.js"></script>
+    </body>
